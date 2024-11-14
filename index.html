@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembagi Kelompok Acak</title>
+    <!-- Import Firebase dengan CDN yang benar -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getDatabase, ref, set, get, child, push } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            // Masukkan konfigurasi Firebase Anda di sini
+
+
+            apiKey: "AIzaSyAZb8vvuzLlXH4Pbkd9Vu4HuO7EVYZRjTw",
+            authDomain: "web-kelas-c3-inf-digitech.firebaseapp.com",
+            projectId: "web-kelas-c3-inf-digitech",
+            databaseURL: "https://web-kelas-c3-inf-digitech-default-rtdb.asia-southeast1.firebasedatabase.app",
+            storageBucket: "web-kelas-c3-inf-digitech.appspot.com",
+            messagingSenderId: "538674797639",
+            appId: "1:538674797639:web:6a2080351462b28b23a562",
+            measurementId: "G-VRW725DPZL"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Make Firebase functions globally available
+        window.database = database;
+        window.dbRef = ref;
+        window.dbSet = set;
+        window.dbGet = get;
+        window.dbChild = child;
+        window.dbPush = push;
+
+        // Initialize participants array
+        window.participants = [];
+        window.groupHistory = [];
+
+        // Load initial data
+        const participantsRef = ref(database, 'participants');
+        get(participantsRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                window.participants = snapshot.val() || [];
+                updateParticipantList();
+            }
+        });
+
+        // Load history data
+        const historyRef = ref(database, 'history');
+        get(historyRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                window.groupHistory = snapshot.val() || [];
+                if (!Array.isArray(window.groupHistory)) {
+                    window.groupHistory = [];
+                }
+                displayHistory(); // Menampilkan histori setelah memuat data
+            } else {
+                window.groupHistory = [];
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- <div class="tab-container container">
+        <button id="generatorTab" class="tab-button active" onclick="showTab('generator')">Generator Kelompok</button>
+        <button id="historyTab" class="tab-button" onclick="showTab('history')">Histori Kelompok</button>
+    </div> -->
+
+    <div id="generatorSection" class="container">
+        <h1>Pembagi Kelompok Acak Kelas C3 Informatika</h1>
+        <p>Web created by @akmalzakial_</p>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <label for="name">Nama:</label>
+                <input type="text" id="name" placeholder="Masukkan nama">
+            </div>
+            
+            <div class="input-group">
+                <label for="gender">Jenis Kelamin:</label>
+                <select id="gender">
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
+                </select>
+            </div>
+            
+            <button onclick="addParticipant()">Tambah Peserta</button>
+        </div>
+
+        <div class="participant-list" id="participantList"></div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="groupTitle">Judul Pembagian Kelompok:</label>
+                <input type="text" id="groupTitle" placeholder="Contoh: Kelompok Praktikum">
+            </div>
+
+            <div class="input-group">
+                <label for="groupCount">Jumlah Kelompok:</label>
+                <input type="number" id="groupCount" min="2" value="2">
+            </div>
+            
+            <div class="input-group">
+                <label for="minMale">Minimal Laki-laki per Kelompok:</label>
+                <input type="number" id="minMale" min="0" value="1">
+            </div>
+            
+            <div class="input-group">
+                <label for="minFemale">Minimal Perempuan per Kelompok:</label>
+                <input type="number" id="minFemale" min="0" value="1">
+            </div>
+            
+            <button onclick="generateGroups()">Bagi Kelompok</button>
+        </div>
+
+        <div class="results" id="results"></div>
+    </div>
+
+    <div id="historySection" class="history-container" style="display: none">
+        <h1>Histori Pembagian Kelompok</h1>
+        <div id="historyList"></div>
+    </div>
+
+   <script src="script.js"></script>
+</body>
+
+</html>

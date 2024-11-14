@@ -1,0 +1,129 @@
+
+        /* CSS tetap sama seperti sebelumnya */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0156ff, #18beff, #ff00ff);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            /* margin-bottom: 30px; */
+        }
+        p {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 50px;
+        }
+
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        button {
+            background: #086fff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #007c42;
+        }
+
+        .participant-list {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .participant-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background: white;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .delete-btn {
+            background: #fc1313;
+            color: white;
+            border: none;
+            padding: 5px 10px; /* Ubah ukuran padding untuk membuat tombol lebih kecil */
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: auto; /* Pastikan tombol berada di sisi kanan */
+        }
+
+        .delete-btn:hover {
+            background: #f56565;
+        }
+
+        .results {
+            margin-top: 30px;
+        }
+
+        .group {
+            background: #f7fafc;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .group h3 {
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+
+        .error {
+            color: #e53e3e;
+            margin-top: 5px;
+            font-size: 14px;
+        }
